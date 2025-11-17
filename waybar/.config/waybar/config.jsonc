@@ -6,7 +6,7 @@
   "height": 26,
   "modules-left": ["niri/workspaces", "wlr/taskbar", "custom/weather"],
   "modules-center": ["clock"],
-  "modules-right": ["network", "memory", "pulseaudio", "cpu", "battery", "custom/nvidia"],
+  "modules-right": ["network", "memory", "pulseaudio", "cpu", "battery", "custom/nvidia", "bluetooth"],
   "memory": {
     "format": "{used:0.1f}G<small>({percentage}%)</small> 󰍛",
     "interval": 3,
@@ -118,11 +118,10 @@
     }
   },
   "bluetooth": {
-    "format": "",
-    "format-disabled": "󰂲",
-    "format-connected": "",
+    "format": "󰂲",
+    "format-connected": "{num_connections} ",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "blueberry"
+    "on-click": "ghostty -e bluetoothctl"
   },
   "pulseaudio": {
     "format": "{volume}% {icon}",
