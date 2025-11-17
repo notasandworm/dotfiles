@@ -108,12 +108,12 @@ bindkey '^[[B' history-substring-search-down
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-TERMINAL='alacritty'
 
+TERMINAL='ghostty'
 alias ls="eza --colour=always --icons=always --group-directories-first"
-alias lS='eza --total-size -1l --tree --level 1 --colour=always --icons=always --group-directories-first --header --git -F=always --octal-permissions'
-alias lSa='eza --total-size -1la --tree --level 1 --colour=always --icons=always --group-directories-first --header --git -F=always --octal-permissions'
+alias la="eza -a --colour=always --icons=always --group-directories-first"
+alias ll='eza --total-size -1l --tree --level 1 --colour=always --icons=always --group-directories-first --header --git -F=always --octal-permissions'
+alias lla='eza --total-size -1la --tree --level 1 --colour=always --icons=always --group-directories-first --header --git -F=always --octal-permissions'
 alias rescan='echo 1 > sudo /sys/bus/pci/rescan'
 alias lfc='fc-cache -fv && fc-list --format="%{family[0]}\\n" | sort -u'
 alias soft-reboot='systemctl soft-reboot'
@@ -139,7 +139,7 @@ alias wj='nvim ~/dev-notes/0_journal/journal.md'
 
 # . "$HOME/.local/share/../bin/env"
 
-# fnm
+# node js fnm
 FNM_PATH="/home/matt/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"

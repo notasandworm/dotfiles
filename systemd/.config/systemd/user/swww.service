@@ -2,12 +2,13 @@
 Description=Set a random wallpaper using swww
 Documentation=https://github.com/LGFae/swww
 After=graphical-session.target swww-daemon.service
+PartOf=graphical-session.target
 Requires=swww-daemon.service
 PartOf=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c "WALLPAPER=$(find %h/.config/matt/wallpapers/ -type f \\( -iname '*.jpg' -o -iname '*.png' -o -iname '*.jpeg' \\) | shuf -n 1); [ -n \"$WALLPAPER\" ] && /usr/bin/swww img --transition-type random --transition-duration 2 --transition-fps 60 \"$WALLPAPER\""
+ExecStart=/bin/sh %h/.config/systemd/user/scripts/swww.sh %h/.config/matt/wallpapers/
 RemainAfterExit=yes
 
 [Install]

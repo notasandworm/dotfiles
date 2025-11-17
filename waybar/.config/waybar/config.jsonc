@@ -118,11 +118,10 @@
     }
   },
   "bluetooth": {
-    "format": "",
-    "format-disabled": "󰂲",
+    "format": "󰂲",
     "format-connected": "{num_connections} ",
     "tooltip-format": "Devices connected: {num_connections}",
-    "on-click": "alacritty -e bluetoothctl"
+    "on-click": "ghostty -e bluetoothctl"
   },
   "pulseaudio": {
     "format": "{volume}% {icon}",
