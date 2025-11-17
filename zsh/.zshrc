@@ -109,7 +109,8 @@ bindkey '^[[B' history-substring-search-down
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-TERMINAL='ghostty'
+export EDITOR='nvim'
+export TERMINAL='ghostty'
 alias ls="eza --colour=always --icons=always --group-directories-first"
 alias la="eza -a --colour=always --icons=always --group-directories-first"
 alias ll='eza --total-size -1l --tree --level 1 --colour=always --icons=always --group-directories-first --header --git -F=always --octal-permissions'
