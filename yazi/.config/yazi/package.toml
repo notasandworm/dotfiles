@@ -1,0 +1,12 @@
+[plugin]
+deps = []
+
+[[flavor.deps]]
+use = "kmlupreti/ayu-dark"
+rev = "648a178"
+hash = "1a8af82f6246942bd700316a16c4e14a"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "f6b425a"
+hash = "2af5f0305730530f23e61ccaba119efe"
