@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+# Join all arguments with '+' so spaces become '+'
+if [ "$#" -eq 0 ]; then
+  echo "Usage: goog search terms..."
+  exit 1
+fi
+
+# Build query: join args with '+'
+query="$(printf '%s+' "$@" | sed 's/+$//')"
+url="https://www.google.com/search?q=${query}"
+
+# Try common Chrome/Chromium binaries. We try to open a new tab when possible
+# (preferred). If that fails or the browser isn't running, launch the browser
+# with the URL so it opens a window/tab. If none of these browsers are present
+# fall back to xdg-open.
+candidates=(google-chrome-stable google-chrome chrome chromium chromium-browser)
+started=0
+browser_bin_found=""
+for bin in "${candidates[@]}"; do
+  if command -v "$bin" >/dev/null 2>&1; then
+    binpath="$(command -v "$bin")"
+
+    # Preferred: ask the browser to open a new tab. If the browser is already
+    # running this will typically open a new tab. If that call fails for any
+    # reason, fall back to launching the browser with the URL which will start
+    # it if needed. We don't exit immediately because we may want to attempt
+    # to bring the new window to focus (see FOCUS_BROWSER below).
+    if setsid "$binpath" --new-tab "$url" >/dev/null 2>&1 & then
+      disown 2>/dev/null || true
+      started=1
+      browser_bin_found="$binpath"
+      break
+    fi
+
+    # Fallback: start the browser with the URL (will open a window and/or tab).
+    if setsid "$binpath" "$url" >/dev/null 2>&1 & then
+      disown 2>/dev/null || true
+      started=1
+      browser_bin_found="$binpath"
+      break
+    fi
+  fi
+done
+
+if [ "$started" -eq 1 ]; then
+  # Optional: attempt to focus the browser window where the new tab opened.
+  # Enable by setting FOCUS_BROWSER=1 in your environment. This uses X11 tools
+  # (xdotool or wmctrl). On Wayland this is generally restricted and may not
+  # be possible without compositor-specific tooling.
+  if [ "${FOCUS_BROWSER:-0}" = "1" ]; then
+    # Give the browser a short moment to create the window/tab
+    tries=12
+    delay=0.08
+
+    # Try xdotool first (works on X11)
+    if command -v xdotool >/dev/null 2>&1 && [ -n "$DISPLAY" ]; then
+      for i in $(seq 1 $tries); do
+        sleep $delay
+        # Search for a visible window belonging to the browser binary we started.
+        # xdotool expects a class or name; we try by class (basename of binary).
+        bname="$(basename "$browser_bin_found")"
+        wins=$(xdotool search --onlyvisible --class "$bname" 2>/dev/null || true)
+        if [ -n "$wins" ]; then
+          last=$(printf '%s\n' $wins | tail -n1)
+          xdotool windowactivate --sync "$last" 2>/dev/null && break
+        fi
+      done
+
+    # Fallback to wmctrl (X11). This will activate a Chrome/Chromium window by name.
+    elif command -v wmctrl >/dev/null 2>&1 && [ -n "$DISPLAY" ]; then
+      for i in $(seq 1 $tries); do
+        sleep $delay
+        if wmctrl -lx | grep -i 'google-chrome.Google-chrome\\|chromium.Chromium' >/dev/null 2>&1; then
+          wmctrl -a 'Google Chrome' 2>/dev/null || wmctrl -a 'Chromium' 2>/dev/null && break
+        fi
+      done
+
+    else
+      # Wayland note: many Wayland compositors intentionally prevent synthetic
+      # focus/activation for security UX reasons. Some compositors provide their
+      # own IPC (swaymsg for sway) but a generic implementation isn't portable.
+      # If you're on sway and want this, we can add a sway-specific branch.
+      :
+    fi
+  fi
+
+  exit 0
+fi
+
+# Fallback to xdg-open (will use default browser)
+if command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$url" >/dev/null 2>&1 & disown
+  exit 0
+fi
+
+# Last-resort: print the URL
+printf '%s\n' "$url"
