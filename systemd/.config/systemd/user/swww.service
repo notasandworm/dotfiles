@@ -4,6 +4,7 @@ Documentation=https://github.com/LGFae/swww
 After=graphical-session.target swww-daemon.service
 PartOf=graphical-session.target
 Requires=swww-daemon.service
+PartOf=graphical-session.target
 
 [Service]
 Type=oneshot

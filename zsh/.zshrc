@@ -109,7 +109,8 @@ bindkey '^[[B' history-substring-search-down
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-TERMINAL='ghostty'
+export EDITOR='nvim'
+export TERMINAL='ghostty'
 alias ls="eza --colour=always --icons=always --group-directories-first"
 alias la="eza -a --colour=always --icons=always --group-directories-first"
 alias ll='eza --total-size -1l --tree --level 1 --colour=always --icons=always --group-directories-first --header --git -F=always --octal-permissions'
@@ -121,6 +122,7 @@ alias lzg='$TERMINAL -e lazygit &'
 alias lzd='$TERMINAL -e lazydocker &'
 alias ip='ip -color=auto'
 alias vf='vim $(fzf --preview "cat {}")'
+alias yay='yay --color=always'
 
 # force yourself to get up and away from computer
 delaylock() {
@@ -134,7 +136,7 @@ delaylock() {
 }
 alias dl='delaylock'
 
-alias wj='nvim ~/c/dev-notes/0_journal/journal.md'
+alias wj='nvim ~/dev-notes/0_journal/journal.md'
 
 # . "$HOME/.local/share/../bin/env"
 
@@ -147,3 +149,4 @@ fi
 
 export PATH="/home/matt/.local/bin:$PATH"
 export LESS='-R --use-color -Dd+r$Du+b$'
+alias ip='ip -color=auto'

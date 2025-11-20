@@ -11,7 +11,7 @@
     "openssh",
     "rsync",
     "ufw",
-    "neovim",
+    "vim",
     "fail2ban",
     "lynis",
     "rkhunter"

@@ -6,11 +6,11 @@ PartOf=graphical-session.target
 ConditionEnvironment=WAYLAND_DISPLAY
 
 [Service]
-Type=simple
 ExecStart=/usr/lib/polkit-kde-authentication-agent-1
+Type=simple
 Restart=on-failure
 RestartSec=1sec
-TimeoutStopSec=10sec
+TimeoutStopSec=10
 
 [Install]
 WantedBy=graphical-session.target

@@ -1,0 +1,160 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# listpkgs.sh
+# Print explicitly-installed (non-dependency) packages and the repo they
+# were installed from (e.g. extra, community, aur) in a two-column, aligned
+# table (no borders). By default prints a header and sorts by package name.
+
+usage(){
+  cat <<EOF
+Usage: $0 [--sort=package|repo|none] [--no-header] [--help]
+
+Options:
+  --sort=package|repo|none   Sort output by package (default) or by repo, or don't sort.
+  --no-header                Don't print the header line.
+  --help                    Show this help.
+EOF
+}
+
+if ! command -v pacman >/dev/null 2>&1; then
+  echo "pacman is required but not found on PATH" >&2
+  exit 2
+fi
+
+# Defaults
+sort_mode="pkg"   # pkg | repo | none
+print_header=1
+# color mode: always | auto | never  (default requested: always)
+color_mode="always"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --sort=*) val="${1#--sort=}"; shift ;;
+    --sort) val="$2"; shift 2 ;;
+    --no-header) print_header=0; shift ;;
+    --colour=*|--color=*) color_mode="${1#*=}"; shift ;;
+    --colour|--color) color_mode="$2"; shift 2 ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "Unknown argument: $1" >&2; usage; exit 2 ;;
+  esac
+  if [[ -n "${val:-}" ]]; then
+    val_lc="$(tr '[:upper:]' '[:lower:]' <<<"$val")"
+    case "$val_lc" in
+      package|pkg|name) sort_mode="pkg" ;;
+      repo) sort_mode="repo" ;;
+      none) sort_mode="none" ;;
+      *) echo "Invalid --sort value: $val" >&2; usage; exit 2 ;;
+    esac
+    unset val
+  fi
+done
+
+# Normalize color_mode value
+color_mode="$(tr '[:upper:]' '[:lower:]' <<<"$color_mode")"
+case "$color_mode" in
+  always|auto|never) : ;;
+  *) echo "Invalid --colour value: $color_mode" >&2; usage; exit 2 ;;
+esac
+
+# color helpers
+should_color(){
+  case "$color_mode" in
+    always) return 0 ;;
+    never) return 1 ;;
+    auto) [[ -t 1 ]] ;;
+    *) return 0 ;;
+  esac
+}
+
+# ANSI colors (only used if should_color)
+RESET="\033[0m"
+BOLD="\033[1m"
+BLUE="\033[34m"       # core
+GREEN="\033[32m"      # extra
+CYAN="\033[36m"       # community
+YELLOW="\033[33m"     # aur
+MAGENTA="\033[35m"    # local/other
+
+color_repo(){
+  local repo="$1"
+  if ! should_color; then
+    printf '%s' "$repo"
+    return
+  fi
+  case "$repo" in
+    core) printf '%b' "${BLUE}${repo}${RESET}" ;;
+    extra) printf '%b' "${GREEN}${repo}${RESET}" ;;
+    community) printf '%b' "${CYAN}${repo}${RESET}" ;;
+    aur) printf '%b' "${YELLOW}${repo}${RESET}" ;;
+    local) printf '%b' "${MAGENTA}${repo}${RESET}" ;;
+    *) printf '%b' "${MAGENTA}${repo}${RESET}" ;;
+  esac
+}
+
+# Build a map of package -> repo from the sync databases
+declare -A repo_map
+while read -r repo pkg _ver; do
+  [[ -z "$repo" || -z "$pkg" ]] && continue
+  repo_map["$pkg"]="$repo"
+done < <(pacman -Sl --color never 2>/dev/null || true)
+
+# Build a set of foreign packages (AUR/manual-installed)
+declare -A foreign_map
+while read -r pkg _ver; do
+  [[ -z "$pkg" ]] && continue
+  foreign_map["$pkg"]=1
+done < <(pacman -Qm --color never 2>/dev/null || true)
+
+# Get explicitly installed packages (non-dependencies)
+mapfile -t explicit_pkgs < <(pacman -Qe --color never 2>/dev/null | awk '{print $1}')
+
+if [[ ${#explicit_pkgs[@]} -eq 0 ]]; then
+  echo "No explicitly installed packages found." >&2
+  exit 0
+fi
+
+# Build entries as tab-separated lines, then optionally sort
+entries=()
+for p in "${explicit_pkgs[@]}"; do
+  repo="${repo_map[$p]:-}"
+  if [[ -n "$repo" ]]; then
+    :
+  elif [[ -n "${foreign_map[$p]:-}" ]]; then
+    repo="aur"
+  else
+    repo="local"
+  fi
+  # Use an actual tab character between package and repo so tools like `sort -t$'\t'` and
+  # printing alignments work correctly. Store entries as single strings.
+  entries+=("$p"$'\t'"$repo")
+done
+
+if [[ "$sort_mode" != "none" ]]; then
+  case "$sort_mode" in
+    pkg) sorted=$(printf "%s\n" "${entries[@]}" | sort -t$'\t' -k1,1) ;;
+    repo) sorted=$(printf "%s\n" "${entries[@]}" | sort -t$'\t' -k2,2 -k1,1) ;;
+  esac
+else
+  sorted=$(printf "%s\n" "${entries[@]}")
+fi
+
+# Determine column width (max of package names and header label)
+maxlen=0
+while IFS=$'\t' read -r pkg repo; do
+  (( ${#pkg} > maxlen )) && maxlen=${#pkg}
+done <<<"$sorted"
+(( maxlen < 7 )) && maxlen=7  # at least length of "PACKAGE"
+(( maxlen > 60 )) && maxlen=60
+
+format="%-${maxlen}s %s\n"
+
+if [[ $print_header -eq 1 ]]; then
+  printf "$format" "PACKAGE" "REPO"
+fi
+
+while IFS=$'\t' read -r pkg repo; do
+  printf "$format" "$pkg" "$repo"
+done <<<"$sorted"
+
+exit 0
