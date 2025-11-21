@@ -90,13 +90,13 @@ output "eDP-1" {
     position x=0 y=0
 }
 
-/-output "DP-5"{
+output "DP-5"{
     mode "2560x1440@240.001"
     scale 1
     transform "normal"
     position x=0 y=0
 }
-/-output "DP-4"{
+output "DP-4"{
     mode "2560x1440@240.001"
     scale 1
     transform "normal"
@@ -376,6 +376,17 @@ window-rule {
     clip-to-geometry true
     opacity 0.95
     draw-border-with-background false
+}
+
+window-rule {
+    match app-id="ghostty"
+    default-column-width { proportion 0.3334; }
+    opacity 0.925
+}
+
+window-rule {
+  match app-id="antigravity"
+  opacity 0.98
 }
 
 window-rule {
