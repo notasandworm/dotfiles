@@ -123,6 +123,8 @@ alias lzd='$TERMINAL -e lazydocker &'
 alias ip='ip -color=auto'
 alias vf='vim $(fzf --preview "cat {}")'
 alias yay='yay --color=always'
+alias ip='ip -color=auto'
+alias ubatt='upower -i /org/freedesktop/UPower/devices/battery_BAT1'
 
 # force yourself to get up and away from computer
 delaylock() {
@@ -149,7 +151,6 @@ fi
 
 export PATH="/home/matt/.local/bin:$PATH"
 export LESS='-R --use-color -Dd+r$Du+b$'
-alias ip='ip -color=auto'
 
 # Rust environment
 . "$HOME/.cargo/env"
