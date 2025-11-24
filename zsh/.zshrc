@@ -150,3 +150,6 @@ fi
 export PATH="/home/matt/.local/bin:$PATH"
 export LESS='-R --use-color -Dd+r$Du+b$'
 alias ip='ip -color=auto'
+
+# Rust environment
+. "$HOME/.cargo/env"
