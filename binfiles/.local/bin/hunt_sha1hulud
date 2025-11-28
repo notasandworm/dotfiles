@@ -1,0 +1,106 @@
+#!/bin/bash
+set -u
+
+# ==============================================================================
+# OBJECTIVE: Detect IOCs for Sha1-Hulud npm malware.
+# TARGETS: Filesystem (setup_bun.js), Processes, GitHub Runners.
+# AUTHOR: Matt
+# ==============================================================================
+
+# ANSI Colors for output
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo -e "${YELLOW}[*] Initiating Forensic Scan for Sha1-Hulud Artifacts...${NC}"
+echo -e "${YELLOW}[*] Warning: This script is READ-ONLY. It will not delete files.${NC}"
+
+# 1. PROCESS SCAN
+# ------------------------------------------------------------------------------
+echo -e "\n${YELLOW}[1] Scanning active processes...${NC}"
+# Look for Bun executing the malicious environment file
+if pgrep -f "bun_environment.js" > /dev/null; then
+    echo -e "${RED}[CRITICAL] Active malicious process detected: bun_environment.js${NC}"
+    ps -fp $(pgrep -f "bun_environment.js")
+else
+    echo -e "${GREEN}[OK] No active malicious Bun processes found.${NC}"
+fi
+
+# 2. FILESYSTEM SCAN (Targeted)
+# ------------------------------------------------------------------------------
+# We focus on /home, /tmp, and /var (often used by CI runners/Docker) for speed.
+SEARCH_PATHS=("/home" "/tmp" "/var")
+IOC_FILES=("setup_bun.js" "bun_environment.js" "discussion.yaml")
+
+echo -e "\n${YELLOW}[2] Scanning filesystem for IOC filenames...${NC}"
+
+FOUND_IOC=0
+for path in "${SEARCH_PATHS[@]}"; do
+    if [ -d "$path" ]; then
+        for ioc in "${IOC_FILES[@]}"; do
+            # Using find. 
+            # Note: We exclude /proc and /sys explicitly just in case SEARCH_PATHS changes.
+            # We redirect errors to /dev/null to avoid permission noise if not root.
+            results=$(find "$path" -type f -name "$ioc" 2>/dev/null)
+            
+            if [ ! -z "$results" ]; then
+                echo -e "${RED}[ALERT] Found IOC file ($ioc):${NC}"
+                echo "$results"
+                FOUND_IOC=1
+            fi
+        done
+    fi
+done
+
+if [ $FOUND_IOC -eq 0 ]; then
+    echo -e "${GREEN}[OK] No IOC filenames found in target directories.${NC}"
+fi
+
+# 3. HIDDEN DIRECTORY SCAN
+# ------------------------------------------------------------------------------
+echo -e "\n${YELLOW}[3] Checking for malicious hidden directories (~/.dev-env)...${NC}"
+# The malware often creates ~/.dev-env
+results=$(find /home -maxdepth 3 -type d -name ".dev-env" 2>/dev/null)
+if [ ! -z "$results" ]; then
+    echo -e "${RED}[CRITICAL] Found malicious hidden directory (.dev-env):${NC}"
+    echo "$results"
+else
+    echo -e "${GREEN}[OK] No .dev-env directories found.${NC}"
+fi
+
+# 4. GITHUB RUNNER CONFIGURATION SCAN
+# ------------------------------------------------------------------------------
+echo -e "\n${YELLOW}[4] Scanning for rogue GitHub Runner configurations...${NC}"
+# The malware names the runner "SHA1HULUD". This string could be in config files.
+# Search primarily in typical user directories. hhhhhhhhhhhhhh
+
+# We look for runner configuration files (.runner, config.json) containing the name.
+runner_configs=$(find /home -name ".runner" -o -name "config.json" 2>/dev/null | head -n 20)
+
+runner_found=0
+for config in $runner_configs; do
+    if grep -q "SHA1HULUD" "$config"; then
+        echo -e "${RED}[CRITICAL] Rogue Runner configuration found in: $config${NC}"
+        runner_found=1
+    fi
+done
+
+if [ $runner_found -eq 0 ]; then
+    echo -e "${GREEN}[OK] No runner configurations containing 'SHA1HULUD' detected.${NC}"
+fi
+
+# 5. PACKAGE.JSON HEURISTIC SCAN
+# ------------------------------------------------------------------------------
+echo -e "\n${YELLOW}[5] Heuristic scan of package.json files for malicious preinstall hooks...${NC}"
+# This finds package.json files and checks for the specific execution string.
+# Limiting depth to avoid scanning deep into legitimate node_modules of clean projects if possible,
+# but for thoroughness we scan 5 levels deep in /home.
+
+find /home -maxdepth 6 -name "package.json" -type f 2>/dev/null | while read -r pkg; do
+    if grep -q "\"preinstall\":.*\"node setup_bun.js\"" "$pkg"; then
+        echo -e "${RED}[CRITICAL] Infected package.json found: $pkg${NC}"
+    fi
+done
+
+echo -e "\n${YELLOW}[*] Scan Complete.${NC}"
