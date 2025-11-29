@@ -381,12 +381,12 @@ window-rule {
 window-rule {
     match app-id="ghostty"
     default-column-width { proportion 0.3334; }
-    opacity 0.925
+    opacity 0.975
 }
 
 window-rule {
-  match app-id="antigravity"
-  opacity 0.98
+  match app-id="Antigravity"
+  opacity 0.975
 }
 
 window-rule {
@@ -432,6 +432,7 @@ binds {
     Super+N     hotkey-overlay-title="Open Nvim in new terminal: Nvim" { spawn-sh "alacritty -e nvim"; }
     Super+B     { spawn "google-chrome-stable"; }
     Super+E     { spawn-sh "kando --menu 'Example Menu'"; }
+    Super+period {spawn-sh "rofimoji --selector fuzzel --prompt 🐈";}
 
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock"    { spawn "swaylock"; }
 
@@ -549,10 +550,12 @@ binds {
     Mod+Ctrl+Shift+WheelScrollDown  cooldown-ms=150 { move-window-to-workspace-down; }
     Mod+Ctrl+Shift+WheelScrollUp    cooldown-ms=150 { move-window-to-workspace-up; }
 
-    Mod+Alt+WheelScrollDown         { focus-monitor-right; }
-    Mod+Alt+WheelScrollUp           { focus-monitor-left; }
-    Mod+Alt+Shift+WheelScrollDown   { move-column-to-monitor-right; }
-    Mod+Alt+Shift+WheelScrollUp     { move-column-to-monitor-left; }
+    Mod+Alt+WheelScrollDown         { focus-monitor-up; }
+    Mod+Alt+WheelScrollUp           { focus-monitor-down; }
+    // Mod+Alt+WheelScrollDown         { focus-monitor-right; }
+    // Mod+Alt+WheelScrollUp           { focus-monitor-left; }
+    // Mod+Alt+Shift+WheelScrollDown   { move-column-to-monitor-right; }
+    // Mod+Alt+Shift+WheelScrollUp     { move-column-to-monitor-left; }
 
     // To avoid scrolling through workspaces really fast, you can use
     // the cooldown-ms property. The bind will be rate-limited to this value.
