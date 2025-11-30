@@ -1,1 +1,2 @@
+action = [copy, type]
 files = [emojis, nerd_font, fontawesome6]
