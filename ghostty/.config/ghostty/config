@@ -49,7 +49,9 @@
 # resize-overlay-duration = 4s 200ms
 
 # font-family = MxPlus IBM VGA 8x16
-font-family=Agave Nerd Font Mono
+# font-family=Agave Nerd Font Mono
+font-family=NotoSansM Nerd Font Mono
+font-size=10
 theme=GitHub Dark Default
 window-padding-x=4
 term=xterm-256color
