@@ -6,8 +6,9 @@
 local colors = {
   bg = "#1a1a1a", -- Dark background
   fg = "#bfbfbf", -- White foreground
+  lightgray = "#747474", -- Light gray
   green = "#66cc85", -- Strings
-  purple = "#cc66ad", -- Constants
+  purple = "#cc6699", -- Constants
   yellow = "#ccb866", -- Comments
   lightblue = "#6699cc", -- Top level definitions
   orange = "#cc8566", -- Warnings
@@ -53,8 +54,8 @@ hi("Pmenu", colors.fg, "#2a2a2a")
 hi("PmenuSel", colors.bg, colors.lightblue)
 
 -- Syntax highlighting
-hi("Comment", colors.yellow)
-hi("String", colors.green)
+hi("Comment", colors.green)
+hi("String", colors.yellow)
 hi("Character", colors.green)
 hi("Number", colors.purple)
 hi("Boolean", colors.purple)
@@ -62,10 +63,10 @@ hi("Float", colors.purple)
 hi("Constant", colors.purple)
 
 -- Keywords and definitions
-hi("Function", colors.lightblue)
-hi("Identifier", colors.lightblue)
+hi("Function", colors.fg, nil, "italic")
+hi("Identifier", colors.fg, nil, "bold")
 hi("Type", colors.lightblue, nil, "bold")
-hi("TypeDef", colors.lightblue, nil, "bold")
+hi("TypeDef", colors.lightblue)
 hi("Keyword", colors.fg)
 hi("Statement", colors.fg)
 
@@ -74,7 +75,6 @@ hi("Operator", colors.fg)
 hi("Delimiter", colors.fg)
 hi("Conditional", colors.fg)
 hi("Repeat", colors.fg)
--- hi("Label", colors.lightblue)
 hi("Label", colors.fg)
 
 -- Search and selection
@@ -84,6 +84,9 @@ hi("Visual", nil, "#444444")
 
 -- Diagnostics
 hi("DiagnosticError", "#ff6b6b", colors.bg)
-hi("DiagnosticWarn", colors.orange, colors.bg)
+hi("DiagnosticWarn", colors.yellow, colors.bg)
 hi("DiagnosticInfo", colors.lightblue, colors.bg)
-hi("DiagnosticHint", colors.green, colors.bg)
+hi("DiagnosticHint", colors.orange, colors.bg)
+
+-- LSP Highlights
+hi("LspInlayHint", colors.lightgray)
