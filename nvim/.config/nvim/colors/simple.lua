@@ -4,7 +4,7 @@
 -- Place this file at ~/.config/nvim/colors/simple.vim or as a lua colorscheme
 
 local colors = {
-  bg = "#1a1a1a", -- Dark background
+  bg = "#121212", -- Dark background
   fg = "#bfbfbf", -- White foreground
   lightgray = "#747474", -- Light gray
   green = "#66cc85", -- Strings
@@ -48,7 +48,7 @@ hi("CursorLineNr", colors.fg, colors.bg, "bold")
 hi("CursorLine", nil, "#2a2a2a")
 hi("CursorColumn", nil, "#2a2a2a")
 hi("VertSplit", "#444444", colors.bg)
-hi("StatusLine", colors.fg, "#2a2a2a")
+hi("StatusLine", colors.green, colors.bg)
 hi("StatusLineNC", "#888888", "#1a1a1a")
 hi("Pmenu", colors.fg, "#2a2a2a")
 hi("PmenuSel", colors.bg, colors.lightblue)
