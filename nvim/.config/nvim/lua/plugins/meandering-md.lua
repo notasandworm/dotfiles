@@ -1,7 +1,7 @@
 return {
   {
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" }, -- if you use the mini.nvim suite
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
     ---@module 'render-markdown'
@@ -12,7 +12,7 @@ return {
       -- Vim modes that will show a rendered view of the markdown file, :h mode(), for all enabled
       -- components. Individual components can be enabled for other modes. Remaining modes will be
       -- unaffected by this plugin.
-      render_modes = { 'n', 'c', 't' },
+      render_modes = { "n", "c", "t" },
       -- Maximum file size (in MB) that this plugin will attempt to render.
       -- File larger than this will effectively be ignored.
       max_file_size = 10.0,
@@ -24,15 +24,15 @@ return {
       -- | obsidian | mimic Obsidian UI                                          |
       -- | lazy     | will attempt to stay up to date with LazyVim configuration |
       -- | none     | does nothing                                               |
-      preset = 'none',
+      preset = "none",
       -- The level of logs to write to file: vim.fn.stdpath('state') .. '/render-markdown.log'.
       -- Only intended to be used for plugin development / debugging.
-      log_level = 'error',
+      log_level = "error",
       -- Print runtime of main update method.
       -- Only intended to be used for plugin development / debugging.
       log_runtime = false,
       -- Filetypes this plugin will run on.
-      file_types = { 'markdown' },
+      file_types = { "markdown" },
       -- Takes buffer as input, if it returns true this plugin will not attach to the buffer.
       ignore = function()
         return false
@@ -67,8 +67,8 @@ return {
         markdown = {
           disable = true,
           directives = {
-            { id = 17, name = 'conceal_lines' },
-            { id = 18, name = 'conceal_lines' },
+            { id = 17, name = "conceal_lines" },
+            { id = 18, name = "conceal_lines" },
           },
         },
       },
@@ -105,7 +105,7 @@ return {
       },
       padding = {
         -- Highlight to use when adding whitespace, should match background.
-        highlight = 'Normal',
+        highlight = "Normal",
       },
       latex = {
         -- Turn on / off latex rendering.
@@ -114,14 +114,14 @@ return {
         render_modes = false,
         -- Executable used to convert latex formula to rendered unicode.
         -- If a list is provided the first command available on the system is used.
-        converter = { 'utftex', 'latex2text' },
+        converter = { "utftex", "latex2text" },
         -- Highlight for latex blocks.
-        highlight = 'RenderMarkdownMath',
+        highlight = "RenderMarkdownMath",
         -- Determines where latex formula is rendered relative to block.
         -- | above  | above latex block                               |
         -- | below  | below latex block                               |
         -- | center | centered with latex block (must be single line) |
-        position = 'center',
+        position = "center",
         -- Number of empty lines above latex blocks.
         top_pad = 0,
         -- Number of empty lines below latex blocks.
@@ -174,20 +174,20 @@ return {
         -- Output is evaluated depending on the type.
         -- | function | `value(context)`              |
         -- | string[] | `cycle(value, context.level)` |
-        icons = { '# ', '## ', '### ', '#### ', '##### ', '###### ' },
+        icons = { "# ", "## ", "### ", "#### ", "##### ", "###### " },
         -- Determines how icons fill the available space.
         -- | right   | '#'s are concealed and icon is appended to right side                      |
         -- | inline  | '#'s are concealed and icon is inlined on left side                        |
         -- | overlay | icon is left padded with spaces and inserted on left hiding additional '#' |
-        position = 'inline',
+        position = "inline",
         -- Added to the sign column if enabled.
         -- Output is evaluated by `cycle(value, context.level)`.
-        signs = { '󰫎 ' },
+        signs = { "󰫎 " },
         -- Width of the heading background.
         -- | block | width of the heading text |
         -- | full  | full width of the window  |
         -- Can also be a list of the above values evaluated by `clamp(value, context.level)`.
-        width = 'inline',
+        width = "inline",
         -- Amount of margin to add to the left of headings.
         -- Margin available space is computed after accounting for padding.
         -- If a float < 1 is provided it is treated as a percentage of available window space.
@@ -210,9 +210,9 @@ return {
         -- Highlight the start of the border using the foreground highlight.
         border_prefix = false,
         -- Used above heading for border.
-        above = '▄',
+        above = "▄",
         -- Used below heading for border.
-        below = '▀',
+        below = "▀",
         -- Highlight for the heading icon and extends through the entire line.
         -- Output is evaluated by `clamp(value, context.level)`.
         backgrounds = {
@@ -226,12 +226,12 @@ return {
         -- Highlight for the heading and sign icons.
         -- Output is evaluated using the same logic as 'backgrounds'.
         foregrounds = {
-          'RenderMarkdownH1',
-          'RenderMarkdownH2',
-          'RenderMarkdownH3',
-          'RenderMarkdownH4',
-          'RenderMarkdownH5',
-          'RenderMarkdownH6',
+          "RenderMarkdownH1",
+          "RenderMarkdownH2",
+          "RenderMarkdownH3",
+          "RenderMarkdownH4",
+          "RenderMarkdownH5",
+          "RenderMarkdownH6",
         },
         -- Define custom heading patterns which allow you to override various properties based on
         -- the contents of a heading.
@@ -279,7 +279,7 @@ return {
         -- Determines where language icon is rendered.
         -- | right | right side of code block |
         -- | left  | left side of code block  |
-        position = 'left',
+        position = "left",
         -- Whether to include the language icon above code blocks.
         language_icon = true,
         -- Whether to include the language name above code blocks.
@@ -293,11 +293,11 @@ return {
         -- Likely because that language has background highlights itself.
         -- Use a boolean to make behavior apply to all languages.
         -- Borders above & below blocks will continue to be rendered.
-        disable_background = { 'diff' },
+        disable_background = { "diff" },
         -- Width of the code block background.
         -- | block | width of the code block  |
         -- | full  | full width of the window |
-        width = 'full',
+        width = "full",
         -- Amount of margin to add to the left of code blocks.
         -- If a float < 1 is provided it is treated as a percentage of available window space.
         -- Margin available space is computed after accounting for padding.
@@ -315,43 +315,43 @@ return {
         -- | thick | use the same highlight as the code body              |
         -- | thin  | when lines are empty overlay the above & below icons |
         -- | hide  | conceal lines unless language name or icon is added  |
-        border = 'hide',
+        border = "hide",
         -- Used above code blocks to fill remaining space around language.
-        language_border = '█',
+        language_border = "█",
         -- Added to the left of language.
-        language_left = '',
+        language_left = "",
         -- Added to the right of language.
-        language_right = '',
+        language_right = "",
         -- Used above code blocks for thin border.
-        above = '▄',
+        above = "▄",
         -- Used below code blocks for thin border.
-        below = '▀',
+        below = "▀",
         -- Turn on / off inline code related rendering.
         inline = true,
         -- Icon to add to the left of inline code.
-        inline_left = '',
+        inline_left = "",
         -- Icon to add to the right of inline code.
-        inline_right = '',
+        inline_right = "",
         -- Padding to add to the left & right of inline code.
         inline_pad = 0,
         -- Highlight for code blocks.
-        highlight = 'RenderMarkdownCode',
+        highlight = "RenderMarkdownCode",
         -- Highlight for code info section, after the language.
-        highlight_info = 'RenderMarkdownCodeInfo',
+        highlight_info = "RenderMarkdownCodeInfo",
         -- Highlight for language, overrides icon provider value.
         highlight_language = nil,
         -- Highlight for border, use false to add no highlight.
-        highlight_border = 'RenderMarkdownCodeBorder',
+        highlight_border = "RenderMarkdownCodeBorder",
         -- Highlight for language, used if icon provider does not have a value.
-        highlight_fallback = 'RenderMarkdownCodeFallback',
+        highlight_fallback = "RenderMarkdownCodeFallback",
         -- Highlight for inline code.
-        highlight_inline = 'RenderMarkdownCodeInline',
+        highlight_inline = "RenderMarkdownCodeInline",
         -- Determines how code blocks & inline code are rendered.
         -- | none     | { enabled = false }                           |
         -- | normal   | { language = false }                          |
         -- | language | { disable_background = true, inline = false } |
         -- | full     | uses all default values                       |
-        style = 'full',
+        style = "full",
       },
       dash = {
         -- Useful context to have when evaluating values.
@@ -363,19 +363,19 @@ return {
         render_modes = false,
         -- Replaces '---'|'***'|'___'|'* * *' of 'thematic_break'.
         -- The icon gets repeated across the window's width.
-        icon = '─',
+        icon = "─",
         -- Width of the generated line.
         -- If a float < 1 is provided it is treated as a percentage of available window space.
         -- Output is evaluated depending on the type.
         -- | function | `value(context)`    |
         -- | number   | `value`             |
         -- | full     | width of the window |
-        width = 'full',
+        width = "full",
         -- Amount of margin to add to the left of dash.
         -- If a float < 1 is provided it is treated as a percentage of available window space.
         left_margin = 0,
         -- Highlight for the whole line generated from the icon.
-        highlight = 'RenderMarkdownDash',
+        highlight = "RenderMarkdownDash",
       },
       document = {
         -- Turn on / off document rendering.
@@ -408,13 +408,13 @@ return {
         -- | string     | `value`                                             |
         -- | string[]   | `cycle(value, context.level)`                       |
         -- | string[][] | `clamp(cycle(value, context.level), context.index)` |
-        icons = { '●', '○', '◆', '◇' },
+        icons = { "●", "○", "◆", "◇" },
         -- Replaces 'n.'|'n)' of 'list_item'.
         -- Output is evaluated using the same logic as 'icons'.
         ordered_icons = function(ctx)
           local value = vim.trim(ctx.value)
           local index = tonumber(value:sub(1, #value - 1))
-          return ('%d.'):format(index > 1 and index or ctx.index)
+          return ("%d."):format(index > 1 and index or ctx.index)
         end,
         -- Padding to add to the left of bullet point.
         -- Output is evaluated depending on the type.
@@ -426,7 +426,7 @@ return {
         right_pad = 0,
         -- Highlight for the bullet icon.
         -- Output is evaluated using the same logic as 'icons'.
-        highlight = 'RenderMarkdownBullet',
+        highlight = "RenderMarkdownBullet",
         -- Highlight for item associated with the bullet point.
         -- Output is evaluated using the same logic as 'icons'.
         scope_highlight = {},
@@ -449,17 +449,17 @@ return {
         right_pad = 1,
         unchecked = {
           -- Replaces '[ ]' of 'task_list_marker_unchecked'.
-          icon = '󰄱 ',
+          icon = "󰄱 ",
           -- Highlight for the unchecked icon.
-          highlight = 'RenderMarkdownUnchecked',
+          highlight = "RenderMarkdownUnchecked",
           -- Highlight for item associated with unchecked checkbox.
           scope_highlight = nil,
         },
         checked = {
           -- Replaces '[x]' of 'task_list_marker_checked'.
-          icon = '󰱒 ',
+          icon = "󰱒 ",
           -- Highlight for the checked icon.
-          highlight = 'RenderMarkdownChecked',
+          highlight = "RenderMarkdownChecked",
           -- Highlight for item associated with checked checkbox.
           scope_highlight = nil,
         },
@@ -483,7 +483,7 @@ return {
         -- Additional modes to render quotes.
         render_modes = false,
         -- Replaces '>' of 'block_quote'.
-        icon = '▋',
+        icon = "▋",
         -- Whether to repeat icon on wrapped lines. Requires neovim >= 0.10. This will obscure text
         -- if incorrectly configured with :h 'showbreak', :h 'breakindent' and :h 'breakindentopt'.
         -- A combination of these that is likely to work follows.
@@ -496,12 +496,12 @@ return {
         -- Highlight for the quote icon.
         -- If a list is provided output is evaluated by `cycle(value, level)`.
         highlight = {
-          'RenderMarkdownQuote1',
-          'RenderMarkdownQuote2',
-          'RenderMarkdownQuote3',
-          'RenderMarkdownQuote4',
-          'RenderMarkdownQuote5',
-          'RenderMarkdownQuote6',
+          "RenderMarkdownQuote1",
+          "RenderMarkdownQuote2",
+          "RenderMarkdownQuote3",
+          "RenderMarkdownQuote4",
+          "RenderMarkdownQuote5",
+          "RenderMarkdownQuote6",
         },
       },
       pipe_table = {
@@ -514,13 +514,13 @@ return {
         -- | double | use double line border characters |
         -- | round  | use round border corners          |
         -- | none   | does nothing                      |
-        preset = 'none',
+        preset = "none",
         -- Determines how individual cells of a table are rendered.
         -- | overlay | writes completely over the table, removing conceal behavior and highlights |
         -- | raw     | replaces only the '|' characters in each row, leaving the cells unmodified |
         -- | padded  | raw + cells are padded to maximum visual width for each column             |
         -- | trimmed | padded except empty space is subtracted from visual width calculation      |
-        cell = 'padded',
+        cell = "padded",
         -- Adjust the computed width of table cells using custom logic.
         cell_offset = function()
           return 0
@@ -544,18 +544,18 @@ return {
         -- Will be automatically enabled if indentation module is enabled.
         border_virtual = false,
         -- Gets placed in delimiter row for each column, position is based on alignment.
-        alignment_indicator = '━',
+        alignment_indicator = "━",
         -- Highlight for table heading, delimiter, and the line above.
-        head = 'RenderMarkdownTableHead',
+        head = "RenderMarkdownTableHead",
         -- Highlight for everything else, main table rows and the line below.
-        row = 'RenderMarkdownTableRow',
+        row = "RenderMarkdownTableRow",
         -- Highlight for inline padding used to add back concealed space.
-        filler = 'RenderMarkdownTableFill',
+        filler = "RenderMarkdownTableFill",
         -- Determines how the table as a whole is rendered.
         -- | none   | { enabled = false }        |
         -- | normal | { border_enabled = false } |
         -- | full   | uses all default values    |
-        style = 'full',
+        style = "full",
       },
       callout = {
         -- Callouts are a special instance of a 'block_quote' that start with a 'shortcut_link'.
@@ -566,34 +566,99 @@ return {
         -- | quote_icon | optional override for quote.icon value for individual callout       |
         -- | category   | optional metadata useful for filtering                              |
 
-        note      = { raw = '[!NOTE]', rendered = '󰋽 Note', highlight = 'RenderMarkdownInfo', category = 'github' },
-        tip       = { raw = '[!TIP]', rendered = '󰌶 Tip', highlight = 'RenderMarkdownSuccess', category = 'github' },
-        important = { raw = '[!IMPORTANT]', rendered = '󰅾 Important', highlight = 'RenderMarkdownHint', category = 'github' },
-        warning   = { raw = '[!WARNING]', rendered = '󰀪 Warning', highlight = 'RenderMarkdownWarn', category = 'github' },
-        caution   = { raw = '[!CAUTION]', rendered = '󰳦 Caution', highlight = 'RenderMarkdownError', category = 'github' },
+        note = { raw = "[!NOTE]", rendered = "󰋽 Note", highlight = "RenderMarkdownInfo", category = "github" },
+        tip = { raw = "[!TIP]", rendered = "󰌶 Tip", highlight = "RenderMarkdownSuccess", category = "github" },
+        important = {
+          raw = "[!IMPORTANT]",
+          rendered = "󰅾 Important",
+          highlight = "RenderMarkdownHint",
+          category = "github",
+        },
+        warning = {
+          raw = "[!WARNING]",
+          rendered = "󰀪 Warning",
+          highlight = "RenderMarkdownWarn",
+          category = "github",
+        },
+        caution = {
+          raw = "[!CAUTION]",
+          rendered = "󰳦 Caution",
+          highlight = "RenderMarkdownError",
+          category = "github",
+        },
         -- Obsidian: https://help.obsidian.md/Editing+and+formatting/Callouts
-        abstract  = { raw = '[!ABSTRACT]', rendered = '󰨸 Abstract', highlight = 'RenderMarkdownInfo', category = 'obsidian' },
-        summary   = { raw = '[!SUMMARY]', rendered = '󰨸 Summary', highlight = 'RenderMarkdownInfo', category = 'obsidian' },
-        tldr      = { raw = '[!TLDR]', rendered = '󰨸 Tldr', highlight = 'RenderMarkdownInfo', category = 'obsidian' },
-        info      = { raw = '[!INFO]', rendered = '󰋽 Info', highlight = 'RenderMarkdownInfo', category = 'obsidian' },
-        todo      = { raw = '[!TODO]', rendered = '󰗡 Todo', highlight = 'RenderMarkdownInfo', category = 'obsidian' },
-        hint      = { raw = '[!HINT]', rendered = '󰌶 Hint', highlight = 'RenderMarkdownSuccess', category = 'obsidian' },
-        success   = { raw = '[!SUCCESS]', rendered = '󰄬 Success', highlight = 'RenderMarkdownSuccess', category = 'obsidian' },
-        check     = { raw = '[!CHECK]', rendered = '󰄬 Check', highlight = 'RenderMarkdownSuccess', category = 'obsidian' },
-        done      = { raw = '[!DONE]', rendered = '󰄬 Done', highlight = 'RenderMarkdownSuccess', category = 'obsidian' },
-        question  = { raw = '[!QUESTION]', rendered = '󰘥 Question', highlight = 'RenderMarkdownWarn', category = 'obsidian' },
-        help      = { raw = '[!HELP]', rendered = '󰘥 Help', highlight = 'RenderMarkdownWarn', category = 'obsidian' },
-        faq       = { raw = '[!FAQ]', rendered = '󰘥 Faq', highlight = 'RenderMarkdownWarn', category = 'obsidian' },
-        attention = { raw = '[!ATTENTION]', rendered = '󰀪 Attention', highlight = 'RenderMarkdownWarn', category = 'obsidian' },
-        failure   = { raw = '[!FAILURE]', rendered = '󰅖 Failure', highlight = 'RenderMarkdownError', category = 'obsidian' },
-        fail      = { raw = '[!FAIL]', rendered = '󰅖 Fail', highlight = 'RenderMarkdownError', category = 'obsidian' },
-        missing   = { raw = '[!MISSING]', rendered = '󰅖 Missing', highlight = 'RenderMarkdownError', category = 'obsidian' },
-        danger    = { raw = '[!DANGER]', rendered = '󱐌 Danger', highlight = 'RenderMarkdownError', category = 'obsidian' },
-        error     = { raw = '[!ERROR]', rendered = '󱐌 Error', highlight = 'RenderMarkdownError', category = 'obsidian' },
-        bug       = { raw = '[!BUG]', rendered = '󰨰 Bug', highlight = 'RenderMarkdownError', category = 'obsidian' },
-        example   = { raw = '[!EXAMPLE]', rendered = '󰉹 Example', highlight = 'RenderMarkdownHint', category = 'obsidian' },
-        quote     = { raw = '[!QUOTE]', rendered = '󱆨 Quote', highlight = 'RenderMarkdownQuote', category = 'obsidian' },
-        cite      = { raw = '[!CITE]', rendered = '󱆨 Cite', highlight = 'RenderMarkdownQuote', category = 'obsidian' },
+        abstract = {
+          raw = "[!ABSTRACT]",
+          rendered = "󰨸 Abstract",
+          highlight = "RenderMarkdownInfo",
+          category = "obsidian",
+        },
+        summary = {
+          raw = "[!SUMMARY]",
+          rendered = "󰨸 Summary",
+          highlight = "RenderMarkdownInfo",
+          category = "obsidian",
+        },
+        tldr = { raw = "[!TLDR]", rendered = "󰨸 Tldr", highlight = "RenderMarkdownInfo", category = "obsidian" },
+        info = { raw = "[!INFO]", rendered = "󰋽 Info", highlight = "RenderMarkdownInfo", category = "obsidian" },
+        todo = { raw = "[!TODO]", rendered = "󰗡 Todo", highlight = "RenderMarkdownInfo", category = "obsidian" },
+        hint = { raw = "[!HINT]", rendered = "󰌶 Hint", highlight = "RenderMarkdownSuccess", category = "obsidian" },
+        success = {
+          raw = "[!SUCCESS]",
+          rendered = "󰄬 Success",
+          highlight = "RenderMarkdownSuccess",
+          category = "obsidian",
+        },
+        check = {
+          raw = "[!CHECK]",
+          rendered = "󰄬 Check",
+          highlight = "RenderMarkdownSuccess",
+          category = "obsidian",
+        },
+        done = { raw = "[!DONE]", rendered = "󰄬 Done", highlight = "RenderMarkdownSuccess", category = "obsidian" },
+        question = {
+          raw = "[!QUESTION]",
+          rendered = "󰘥 Question",
+          highlight = "RenderMarkdownWarn",
+          category = "obsidian",
+        },
+        help = { raw = "[!HELP]", rendered = "󰘥 Help", highlight = "RenderMarkdownWarn", category = "obsidian" },
+        faq = { raw = "[!FAQ]", rendered = "󰘥 Faq", highlight = "RenderMarkdownWarn", category = "obsidian" },
+        attention = {
+          raw = "[!ATTENTION]",
+          rendered = "󰀪 Attention",
+          highlight = "RenderMarkdownWarn",
+          category = "obsidian",
+        },
+        failure = {
+          raw = "[!FAILURE]",
+          rendered = "󰅖 Failure",
+          highlight = "RenderMarkdownError",
+          category = "obsidian",
+        },
+        fail = { raw = "[!FAIL]", rendered = "󰅖 Fail", highlight = "RenderMarkdownError", category = "obsidian" },
+        missing = {
+          raw = "[!MISSING]",
+          rendered = "󰅖 Missing",
+          highlight = "RenderMarkdownError",
+          category = "obsidian",
+        },
+        danger = {
+          raw = "[!DANGER]",
+          rendered = "󱐌 Danger",
+          highlight = "RenderMarkdownError",
+          category = "obsidian",
+        },
+        error = { raw = "[!ERROR]", rendered = "󱐌 Error", highlight = "RenderMarkdownError", category = "obsidian" },
+        bug = { raw = "[!BUG]", rendered = "󰨰 Bug", highlight = "RenderMarkdownError", category = "obsidian" },
+        example = {
+          raw = "[!EXAMPLE]",
+          rendered = "󰉹 Example",
+          highlight = "RenderMarkdownHint",
+          category = "obsidian",
+        },
+        quote = { raw = "[!QUOTE]", rendered = "󱆨 Quote", highlight = "RenderMarkdownQuote", category = "obsidian" },
+        cite = { raw = "[!CITE]", rendered = "󱆨 Cite", highlight = "RenderMarkdownQuote", category = "obsidian" },
       },
       link = {
         -- Turn on / off inline link icon rendering.
@@ -605,29 +670,29 @@ return {
           -- Turn on / off footnote rendering.
           enabled = true,
           -- Inlined with content.
-          icon = '󰯔 ',
+          icon = "󰯔 ",
           -- Replace value with superscript equivalent.
           superscript = true,
           -- Added before link content.
-          prefix = '',
+          prefix = "",
           -- Added after link content.
-          suffix = '',
+          suffix = "",
         },
         -- Inlined with 'image' elements.
-        image = '󰥶 ',
+        image = "󰥶 ",
         -- Inlined with 'email_autolink' elements.
-        email = '󰀓 ',
+        email = "󰀓 ",
         -- Fallback icon for 'inline_link' and 'uri_autolink' elements.
-        hyperlink = '󰌹 ',
+        hyperlink = "󰌹 ",
         -- Applies to the inlined icon as a fallback.
-        highlight = 'RenderMarkdownLink',
+        highlight = "RenderMarkdownLink",
         -- Applies to WikiLink elements.
         wiki = {
-          icon = '󱗖 ',
+          icon = "󱗖 ",
           body = function()
             return nil
           end,
-          highlight = 'RenderMarkdownWikiLink',
+          highlight = "RenderMarkdownWikiLink",
           scope_highlight = nil,
         },
         -- Define custom destination patterns so icons can quickly inform you of what a link
@@ -642,23 +707,23 @@ return {
         -- | priority  | optional used when multiple match, uses pattern length if empty |
         -- | highlight | optional highlight for 'icon', uses fallback highlight if empty |
         custom = {
-          web = { pattern = '^http', icon = '󰖟 ' },
-          discord = { pattern = 'discord%.com', icon = '󰙯 ' },
-          github = { pattern = 'github%.com', icon = '󰊤 ' },
-          gitlab = { pattern = 'gitlab%.com', icon = '󰮠 ' },
-          google = { pattern = 'google%.com', icon = '󰊭 ' },
-          neovim = { pattern = 'neovim%.io', icon = ' ' },
-          reddit = { pattern = 'reddit%.com', icon = '󰑍 ' },
-          stackoverflow = { pattern = 'stackoverflow%.com', icon = '󰓌 ' },
-          wikipedia = { pattern = 'wikipedia%.org', icon = '󰖬 ' },
-          youtube = { pattern = 'youtube%.com', icon = '󰗃 ' },
+          web = { pattern = "^http", icon = "󰖟 " },
+          discord = { pattern = "discord%.com", icon = "󰙯 " },
+          github = { pattern = "github%.com", icon = "󰊤 " },
+          gitlab = { pattern = "gitlab%.com", icon = "󰮠 " },
+          google = { pattern = "google%.com", icon = "󰊭 " },
+          neovim = { pattern = "neovim%.io", icon = " " },
+          reddit = { pattern = "reddit%.com", icon = "󰑍 " },
+          stackoverflow = { pattern = "stackoverflow%.com", icon = "󰓌 " },
+          wikipedia = { pattern = "wikipedia%.org", icon = "󰖬 " },
+          youtube = { pattern = "youtube%.com", icon = "󰗃 " },
         },
       },
       sign = {
         -- Turn on / off sign rendering.
         enabled = true,
         -- Applies to background of sign text.
-        highlight = 'RenderMarkdownSign',
+        highlight = "RenderMarkdownSign",
       },
       inline_highlight = {
         -- Mimics Obsidian inline highlights when content is surrounded by double equals.
@@ -669,7 +734,7 @@ return {
         -- Additional modes to render inline highlights.
         render_modes = false,
         -- Applies to background of surrounded text.
-        highlight = 'RenderMarkdownInlineHighlight',
+        highlight = "RenderMarkdownInlineHighlight",
         -- Define custom highlights based on text prefix.
         -- The key is for healthcheck and to allow users to change its values, value type below.
         -- | prefix    | matched against text body, @see :h vim.startswith() |
@@ -692,11 +757,11 @@ return {
         -- Do not indent heading titles, only the body.
         skip_heading = false,
         -- Prefix added when indenting, one per level.
-        icon = '▎',
+        icon = "▎",
         -- Priority to assign to extmarks.
         priority = 0,
         -- Applied to icon.
-        highlight = 'RenderMarkdownIndent',
+        highlight = "RenderMarkdownIndent",
       },
       html = {
         -- Turn on / off all HTML rendering.
@@ -709,7 +774,7 @@ return {
           -- Optional text to inline before the concealed comment.
           text = nil,
           -- Highlight for the inlined text.
-          highlight = 'RenderMarkdownHtmlComment',
+          highlight = "RenderMarkdownHtmlComment",
         },
         -- HTML tags whose start and end will be hidden and icon shown.
         -- The key is matched against the tag name, value type below.
@@ -733,7 +798,7 @@ return {
           -- Used when not being rendered, get user setting.
           default = vim.o.concealcursor,
           -- Used when being rendered, show concealed text in all modes.
-          rendered = '',
+          rendered = "",
         },
       },
       overrides = {
@@ -750,7 +815,7 @@ return {
         buftype = {
           nofile = {
             render_modes = true,
-            padding = { highlight = 'NormalFloat' },
+            padding = { highlight = "NormalFloat" },
             sign = { enabled = false },
           },
         },
@@ -772,5 +837,5 @@ return {
         render_modes = false,
       },
     },
-  }
+  },
 }

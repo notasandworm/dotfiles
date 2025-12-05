@@ -90,3 +90,5 @@ hi("DiagnosticHint", colors.orange, colors.bg)
 
 -- LSP Highlights
 hi("LspInlayHint", colors.lightgray)
+
+hi("@markup.heading", colors.lightblue, nil, "bold")
