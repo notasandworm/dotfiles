@@ -6,7 +6,7 @@
 local colors = {
   bg = "#121212", -- Dark background
   fg = "#bfbfbf", -- White foreground
-  lightgray = "#747474", -- Light gray
+  lightgray = "#5d5d5d", -- Hints (lsp, autocompletions)
   green = "#66cc85", -- Strings
   purple = "#cc6699", -- Constants
   yellow = "#ccb866", -- Comments
@@ -63,9 +63,9 @@ hi("Float", colors.purple)
 hi("Constant", colors.purple)
 
 -- Keywords and definitions
-hi("Function", colors.fg, nil, "italic")
-hi("Identifier", colors.fg, nil, "bold")
-hi("Type", colors.lightblue, nil, "bold")
+hi("Function", colors.fg, nil, "underline")
+hi("Identifier", "#ffffff", nil, "italic")
+hi("Type", colors.lightblue)
 hi("TypeDef", colors.lightblue)
 hi("Keyword", colors.fg)
 hi("Statement", colors.fg)
@@ -89,6 +89,6 @@ hi("DiagnosticInfo", colors.lightblue, colors.bg)
 hi("DiagnosticHint", colors.orange, colors.bg)
 
 -- LSP Highlights
-hi("LspInlayHint", colors.lightgray)
+hi("LspInlayHint", colors.lightgray, nil, "italic")
 
 hi("@markup.heading", colors.lightblue, nil, "bold")
