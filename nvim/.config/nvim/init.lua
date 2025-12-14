@@ -3,5 +3,9 @@ require("config.lazy")
 vim.opt.termguicolors = true
 vim.o.background = "dark"
 vim.cmd("colorscheme simple")
+vim.cmd("set nolist")
 
-vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = "#2a2a2a" })
+-- Map Ctrl + PgUp to go to the previous tab
+vim.keymap.set("n", "<C-PageUp>", ":tabprevious<CR>", { desc = "Previous tab" })
+-- Map Ctrl + PgDn to go to the next tab
+vim.keymap.set("n", "<C-PageDown>", ":tabnext<CR>", { desc = "Next tab" })

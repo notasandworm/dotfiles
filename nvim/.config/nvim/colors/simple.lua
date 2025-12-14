@@ -5,13 +5,15 @@
 
 local colors = {
   bg = "#121212", -- Dark background
-  fg = "#bfbfbf", -- White foreground
-  lightgray = "#5d5d5d", -- Hints (lsp, autocompletions)
-  green = "#66cc85", -- Strings
+  fg = "#acacac", -- White foreground
+  white = "#cccccc",
+  comment = "#656565", -- Comments
+  ghost = "#414141", -- Hints (lsp, autocompletions)
+  green = "#66cc85", -- Comments
   purple = "#cc6699", -- Constants
-  yellow = "#ccb866", -- Comments
+  yellow = "#ccb866", -- Strings
   lightblue = "#6699cc", -- Top level definitions
-  orange = "#cc8566", -- Warnings
+  orange = "#a36a52", -- Warnings
 }
 
 -- Set background
@@ -54,7 +56,7 @@ hi("Pmenu", colors.fg, "#2a2a2a")
 hi("PmenuSel", colors.bg, colors.lightblue)
 
 -- Syntax highlighting
-hi("Comment", colors.green)
+hi("Comment", colors.comment, nil, "italic")
 hi("String", colors.yellow)
 hi("Character", colors.green)
 hi("Number", colors.purple)
@@ -63,8 +65,8 @@ hi("Float", colors.purple)
 hi("Constant", colors.purple)
 
 -- Keywords and definitions
-hi("Function", colors.fg, nil, "underline")
-hi("Identifier", "#ffffff", nil, "italic")
+hi("Function", colors.green)
+hi("Identifier", colors.fg, nil, "italic")
 hi("Type", colors.lightblue)
 hi("TypeDef", colors.lightblue)
 hi("Keyword", colors.fg)
@@ -84,11 +86,20 @@ hi("Visual", nil, "#444444")
 
 -- Diagnostics
 hi("DiagnosticError", "#ff6b6b", colors.bg)
-hi("DiagnosticWarn", colors.yellow, colors.bg)
 hi("DiagnosticInfo", colors.lightblue, colors.bg)
-hi("DiagnosticHint", colors.orange, colors.bg)
+hi("DiagnosticHint", colors.yellow, colors.bg)
+hi("DiagnosticWarn", colors.orange, colors.bg, "italic")
 
 -- LSP Highlights
-hi("LspInlayHint", colors.lightgray, nil, "italic")
+hi("LspInlayHint", colors.ghost)
 
+-- changes hl bg color for markdown code blocks
+hi("RenderMarkdownCode", nil, "#282828")
+
+-- Personal Misc
 hi("@markup.heading", colors.lightblue, nil, "bold")
+hi("@lsp.type.comment.rust", colors.fg)
+hi("DiagnosticUnnecessary", colors.orange, nil, "italic")
+hi("RenderMarkdownCodeInline", colors.green)
+hi("Special", colors.green)
+hi("@label.markdown", colors.white)
