@@ -155,3 +155,14 @@ alias ip='ip -color=auto'
 
 # Rust environment
 . "$HOME/.cargo/env"
+
+# bun completions
+[ -s "/home/matt/.bun/_bun" ] && source "/home/matt/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
