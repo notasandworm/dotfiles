@@ -149,6 +149,7 @@ layout {
     center-focused-column "never"
     always-center-single-column
     empty-workspace-above-first
+    background-color "#21130d"
 
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
@@ -655,8 +656,8 @@ binds {
     // * adjust width as a percentage of screen width: "-10%" or "+10%"
     // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
     // set-column-width "100" will make the column occupy 200 physical screen pixels.
-    Mod+Minus { set-column-width "-5%"; }
-    Mod+Equal { set-column-width "+5%"; }
+    Mod+Minus { set-column-width "-2.5%"; }
+    Mod+Equal { set-column-width "+2.5%"; }
 
     // Finer height adjustments when in column with other windows.
     Mod+Shift+Minus { set-window-height "-5%"; }
