@@ -1,0 +1,95 @@
+{
+    "workbench.colorTheme": "Visual Studio Dark",
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "<C-p>"
+            ],
+            "commands": [
+                "workbench.action.quickOpen"
+            ]
+        }
+    ],
+    "window.density.editorTabHeight": "compact",
+    "vim.smartRelativeLine": true,
+    "json.schemaDownload.enable": true,
+    "editor.lineHeight": 1.2,
+    "editor.fontFamily": "'RobotoMono Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.bracketPairColorization.enabled": false,
+    "editor.tokenColorCustomizations": {
+    "comments": "#ccb866", 
+    "strings": "#66cc85",
+    "functions": "#6699cc",
+    "textMateRules": [
+        {
+            "name": "Flatten Keywords, Numbers, Constants, Operators to FG",
+            "scope": [
+                "keyword",
+                "storage", 
+                "storage.type",
+                "constant.numeric",
+                "constant.language",
+                "constant.other",
+                "keyword.operator",
+                "meta.brace",
+                "meta.bracket",
+                "meta.paren",
+                "entity.name.tag",
+                "support.constant",
+                "punctuation",
+                "punctuation.separator",
+                "punctuation.terminator",
+                "punctuation.definition.variable",
+            ],
+            "settings": {
+                "foreground": "#acacac",
+                "fontStyle": ""
+            }
+        },
+        {
+            "name": "Types",
+            "scope": ["entity.name.type", "support.type", "support.class"],
+            "settings": {
+                "foreground": "#cccccc"
+            }
+        },
+        {
+            "name": "Identifiers (Variables)",
+            "scope": ["variable", "variable.parameter", "meta.parameter"],
+            "settings": {
+                "foreground": "#acacac",
+                "fontStyle": ""
+            }
+        },
+        {
+            "name": "Markdown Headings",
+            "scope": ["markup.heading", "entity.name.section"],
+            "settings": {
+                "foreground": "#6699cc",
+                "fontStyle": "bold"
+            }
+        },
+        {
+            "name": "Markdown Inline Code",
+            "scope": "markup.inline.raw",
+            "settings": {
+                "foreground": "#66cc85"
+            }
+        },
+        {
+            "name": "Rust Specific Comment Override",
+            "scope": "comment.line.double-slash.rust",
+            "settings": {
+                "foreground": "#acacac"
+            }
+        },
+        {
+            "name": "Inlay Hints (Ghost text equivalent)",
+            "scope": "comment.hint",
+            "settings": {
+                "foreground": "#414141"
+            }
+        }
+    ]
+}
+}
